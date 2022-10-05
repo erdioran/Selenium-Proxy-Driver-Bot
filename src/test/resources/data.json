@@ -1,0 +1,8 @@
+{
+  "url": {
+    "proxyApi1": "https://raw.githubusercontent.com/mertguvencli/http-proxy-list/main/proxy-list/data.json",
+    "proxyApi2": "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/json/proxies.json"
+  }
+}
+
+

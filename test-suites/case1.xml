@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="ErdiOran Case1 Suite" verbose="1" thread-count="1">
+    <listeners>
+        <listener class-name="com.erdioran.listener.ExecutionListener"/>
+        <listener class-name="com.erdioran.listener.SuiteListener"/>
+        <listener class-name="com.erdioran.listener.TestListener"/>
+        <listener class-name="com.erdioran.listener.AnnotationTransformer"/>
+    </listeners>
+    <test name="Case 1" enabled="true">
+        <classes>
+            <class name="com.erdioran.testCases.ProxyCheck">
+                <methods>
+                    <include name="proxyCheck"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

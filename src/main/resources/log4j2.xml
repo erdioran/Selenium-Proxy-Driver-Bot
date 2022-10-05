@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false"
+                           pattern="%style{[%d{HH:mm:ss dd-MMM-yy}]}{yellow} [%-5level] %style{[%X{testName}]}{magenta} %style{[%F:%L]}{blue} ==> %highlight{%msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green bold, DEBUG=green bold, TRACE=blue}"/>
+        </Console>
+        <File append="false" fileName="target/Test.log" immediateFlush="true" name="MyFile">
+            <PatternLayout
+                    pattern="[%d{HH:mm:ss dd-MMM-yy}] [%-5level] %style{[%X{testName}]}{magenta} [%F:%L] ==> %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MyFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
