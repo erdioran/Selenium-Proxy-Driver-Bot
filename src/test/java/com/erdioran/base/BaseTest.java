@@ -12,6 +12,9 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
+import java.util.List;
+
+import static com.erdioran.utils.ProxyManager.getProxyApi1;
 
 public abstract class BaseTest {
 
@@ -30,6 +33,9 @@ public abstract class BaseTest {
         String status = (String) context.getAttribute("previousTestStatus");
         boolean isNewBrowserPerTest = Boolean.parseBoolean(ConfigManager.getConfigProperty("new.browser.per.test"));
         boolean isCleanUpTest = context.getName().contains("Clean");
+
+
+
         if (!isNewBrowserPerTest) {
             if (status == null || status.equalsIgnoreCase("failed")) {
                 LOGGER.info("Launching fresh browser");

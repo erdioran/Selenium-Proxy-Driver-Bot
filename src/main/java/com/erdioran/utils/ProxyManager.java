@@ -5,8 +5,18 @@ import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.concurrent.CompletableFuture;
 
 import static com.erdioran.utils.ConfigManager.*;
 import static com.erdioran.utils.DataManager.*;
@@ -38,8 +48,8 @@ public class ProxyManager {
             proxyListApi = getProxyApi2();
         } else {
             for (int i = 0; i < limit; i++) {
-                String proxyResponse = response.getBody().jsonPath().getList("ip").get(i) + ":" + response.getBody().jsonPath().getList("port").get(i);
-                setExcel("LoginData",proxyResponse, 1, 2);
+                String proxyResponse = response.getBody().jsonPath().getList("ip").get(i+1) + ":" + response.getBody().jsonPath().getList("port").get(i+1);
+                setExcel("LoginData",proxyResponse, i+1, 1);
                 proxyListApi.add(proxyResponse);
             }
             LOGGER.info("responseBody: " + proxyListApi);
@@ -72,7 +82,7 @@ public class ProxyManager {
                 // To get the whole list, the following is used. But this will degrade performance a lot.
                 // for(int i = 1; i<response.getBody().jsonPath().getList("http").size();i++)
                 String proxyResponse = (String) response.getBody().jsonPath().getList("http").get(i);
-                setExcel("LoginData",proxyResponse, 1, 2);
+                setExcel("LoginData",proxyResponse, i+1, 2);
                 proxyListApi.add(proxyResponse);
             }
             LOGGER.info("responseBody: " + proxyListApi);

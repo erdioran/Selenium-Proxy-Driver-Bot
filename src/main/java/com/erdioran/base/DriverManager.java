@@ -6,18 +6,25 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.Assert;
 
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+
+import static com.erdioran.utils.ProxyManager.*;
+
 
 public class DriverManager {
 
@@ -48,18 +55,23 @@ public class DriverManager {
     }
 
     public static void launchBrowser(String browser) {
+        List<String> myList = getProxyApi1();
+
+
         WebDriver driver;
+
         if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions chromeOptions = new ChromeOptions();
             HashMap<String, Object> chromePrefs = new HashMap<>();
-            chromePrefs.put("profile.default_content_settings.popups", 0);
             if (ConfigManager.isHeadless()) {    //headless mode, background tests
+
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
                 chromeOptions.setHeadless(true);
                 chromeOptions.addArguments("--window-size=1920,1080");
             } else {
+                chromeOptions.addArguments("--proxy-server=http://"+ myList.get(2));
                 chromeOptions.addArguments("--window-size=1920,1080");
             }
             chromeOptions.addArguments("--disable-gpu");  // for windows headless mode
