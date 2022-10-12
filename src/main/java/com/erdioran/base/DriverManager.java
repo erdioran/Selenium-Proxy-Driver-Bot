@@ -54,8 +54,8 @@ public class DriverManager {
         }
     }
 
-    public static void launchBrowser(String browser) {
-        List<String> myList = getProxyApi1();
+    public static void launchBrowser(String browser,String proxy) {
+
 
 
         WebDriver driver;
@@ -71,7 +71,7 @@ public class DriverManager {
                 chromeOptions.setHeadless(true);
                 chromeOptions.addArguments("--window-size=1920,1080");
             } else {
-                chromeOptions.addArguments("--proxy-server=http://"+ myList.get(2));
+                chromeOptions.addArguments("--proxy-server=http://"+ proxy);
                 chromeOptions.addArguments("--window-size=1920,1080");
             }
             chromeOptions.addArguments("--disable-gpu");  // for windows headless mode

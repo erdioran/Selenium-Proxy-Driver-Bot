@@ -11,6 +11,7 @@
             <class name="com.erdioran.testCases.ProxyCheck">
                 <methods>
                     <include name="proxyCheck"/>
+                    <include name="proxyCheck2"/>
                 </methods>
             </class>
         </classes>

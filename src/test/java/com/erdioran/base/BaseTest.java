@@ -18,10 +18,16 @@ import static com.erdioran.utils.ProxyManager.getProxyApi1;
 
 public abstract class BaseTest {
 
+
     private static final Logger LOGGER = LogManager.getLogger(BaseTest.class);
+
+    public int count = 0;
+    public List<String> myList;
 
     @BeforeMethod(alwaysRun = true)
     public void startBrowserAndLogin(Method method, ITestResult result, ITestContext context) {
+
+
         ThreadContext.put("testName", method.getName());
         LOGGER.info("Executing test method : [{}] in class [{}]", result.getMethod().getMethodName(),
                 result.getTestClass().getName());
@@ -34,21 +40,24 @@ public abstract class BaseTest {
         boolean isNewBrowserPerTest = Boolean.parseBoolean(ConfigManager.getConfigProperty("new.browser.per.test"));
         boolean isCleanUpTest = context.getName().contains("Clean");
 
-
+     //   List<String> myList = getProxyApi1();
 
         if (!isNewBrowserPerTest) {
             if (status == null || status.equalsIgnoreCase("failed")) {
                 LOGGER.info("Launching fresh browser");
-                DriverManager.launchBrowser(ConfigManager.getBrowser());
+                DriverManager.launchBrowser(ConfigManager.getBrowser(), myList.get(count));
             } else {
                 LOGGER.info("Skip log in");
             }
         } else if (isCleanUpTest) {
             LOGGER.info("Clean up test. Skip log in");
         } else {
-            DriverManager.launchBrowser(ConfigManager.getBrowser());
+            DriverManager.launchBrowser(ConfigManager.getBrowser(), myList.get(count));
         }
+        System.out.println(count);
+        count++;
     }
+
 
     @AfterMethod(alwaysRun = true)
     public void CloseBrowser(ITestResult result, ITestContext context) {
@@ -68,11 +77,13 @@ public abstract class BaseTest {
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
+        myList = getProxyApi1();
     }
 
     @AfterSuite(alwaysRun = true)
     public void afterSuite() {
         DriverManager.quitDriver();
     }
+
 
 }

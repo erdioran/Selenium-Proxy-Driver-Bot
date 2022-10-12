@@ -11,7 +11,10 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.List;
 
 import static com.erdioran.base.Common.getText;
@@ -37,8 +40,19 @@ public class ProxyCheck extends BaseTest {
         test.info("Excel Example");
         ExtentTestManager.info("Excel Example");
 
-        pageLoad("https://whatismyipaddress.com/");
-        Thread.sleep(250000);
+        pageLoad("http://myip.dnsomatic.com/");
+        Thread.sleep(25000);
+    }
+
+    @Test(description = "Proxy Check2", priority = 2)
+    public void proxyCheck2() throws IOException, InterruptedException {
+        ExtentTest test = ExtentTestManager.getNode();
+        test.info("Proxy Check");
+        ExtentTestManager.info("Proxy Check");
+
+        pageLoad("http://myip.dnsomatic.com/");
+        Thread.sleep(25000);
+
 
     }
 
